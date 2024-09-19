@@ -11,7 +11,7 @@ db = SQLAlchemy(app)
 
 # Modelo de la base de datos
 class Estudiante(db.Model):
-    __tablename__ = 'alumnos'
+    __tablename__ = 'estudiantes'
     __table_args__ = {'schema': 'public'}  # Especifica el esquema
     no_control = db.Column(db.String, primary_key=True)
     nombre = db.Column(db.String)
@@ -33,11 +33,11 @@ class Estudiante(db.Model):
 # Mostrar todos los alumnos
 @app.route('/')
 def index():
-    alumnos = Estudiante.query.all()
-    return render_template('index.html', alumnos=alumnos)
+    estudiantes = Estudiante.query.all()
+    return render_template('index.html', estudiantes=estudiantes)
 
 # Crear un nuevo estudiante (formulario)
-@app.route('/alumnos/new', methods=['GET', 'POST'])
+@app.route('/estudiantes/new', methods=['GET', 'POST'])
 def create_estudiante():
     if request.method == 'POST':
         no_control = request.form['no_control']
@@ -54,7 +54,7 @@ def create_estudiante():
     return render_template('create_estudiante.html')
 
 # Actualizar un estudiante (formulario)
-@app.route('/alumnos/update/<string:no_control>', methods=['GET', 'POST'])
+@app.route('/estudiantes/update/<string:no_control>', methods=['GET', 'POST'])
 def update_estudiante(no_control):
     estudiante = Estudiante.query.get(no_control)
     if request.method == 'POST':
@@ -68,7 +68,7 @@ def update_estudiante(no_control):
     return render_template('update_estudiante.html', estudiante=estudiante)
 
 # Eliminar un estudiante
-@app.route('/alumnos/delete/<string:no_control>')
+@app.route('/estudiantes/delete/<string:no_control>')
 def delete_estudiante(no_control):
     estudiante = Estudiante.query.get(no_control)
     if estudiante:
