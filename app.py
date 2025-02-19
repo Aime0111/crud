@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -19,3 +19,18 @@ class Alumno(db.Model):
     ap_paterno = db.Column(db.String)
     ap_materno = db.Column(db.String)
     semestre = db.Column(db.Integer)
+
+# Endpoint para obtener todos los estudiantes
+@app.route('/alumnos', methods=['GET'])
+def obtener_alumnos():
+    alumnos = Alumno.query.all()
+    lista_alumnos = []
+    for alumno in alumnos:
+        lista_alumnos.append({
+            'no control': alumno.no_control,
+            'nombre': alumno.nombre,
+            'ap paterno': alumno.ap_paterno,
+            'ap materno': alumno.ap_materno,
+            'semestre': alumno.semestre
+        })
+    return jsonify(lista_alumnos)
