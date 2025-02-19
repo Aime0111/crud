@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, request, url_for
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -34,3 +34,20 @@ class Alumno(db.Model):
 def listar_alumnos():
     alumnos = Alumno.query.all()
     return render_template('index.html', alumnos=alumnos)
+
+# Crear un nuevo estudiante (formulario)
+@app.route('/alumnos/new', methods=['GET', 'POST'])
+def create_alumno():
+    if request.method == 'POST':
+        no_control = request.form['no_control']
+        nombre = request.form['nombre']
+        ap_paterno = request.form['ap_paterno']
+        ap_materno = request.form['ap_materno']
+        semestre = request.form['semestre']
+
+        nuevo_alumno = Alumno(no_control=no_control, nombre=nombre, ap_paterno=ap_paterno, ap_materno=ap_materno, semestre=semestre)
+        db.session.add(nuevo_alumno)
+        db.session.commit()
+
+        return redirect(url_for('index'))
+    return render_template('create_alumno.html')
