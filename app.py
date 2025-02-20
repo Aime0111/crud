@@ -49,5 +49,5 @@ def create_alumno():
         db.session.add(nuevo_alumno)
         db.session.commit()
 
-        return redirect(url_for('index'))
+        return redirect(url_for('listar_alumnos'))
     return render_template('create_alumno.html')
