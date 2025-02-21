@@ -65,3 +65,15 @@ def update_alumno(no_control):
         db.session.commit()
         return redirect(url_for('listar_alumnos'))
     return render_template('update_alumno.html', alumno=alumno)
+
+# Eliminar un alumno
+@app.route('/alumnos/delete/<string:no_control>')
+def delete_alumno(no_control):
+    alumno = Alumno.query.get(no_control)
+    if Alumno:
+        db.session.delete(alumno)
+        db.session.commit()
+    return redirect(url_for('listar_alumnos'))
+
+if __name__ == '__main__':
+    app.run(debug=True)
