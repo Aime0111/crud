@@ -51,3 +51,17 @@ def create_alumno():
 
         return redirect(url_for('listar_alumnos'))
     return render_template('create_alumno.html')
+
+# Actualizar un alumno (formulario)
+@app.route('/alumnos/update/<string:no_control>', methods=['GET', 'POST'])
+def update_alumno(no_control):
+    alumno = Alumno.query.get(no_control)
+    if request.method == 'POST':
+        alumno.nombre = request.form['nombre']
+        alumno.ap_paterno = request.form['ap_paterno']
+        alumno.ap_materno = request.form['ap_materno']
+        alumno.semestre = request.form['semestre']
+        
+        db.session.commit()
+        return redirect(url_for('listar_alumnos'))
+    return render_template('update_alumno.html', alumno=alumno)
