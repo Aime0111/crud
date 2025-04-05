@@ -1,32 +1,69 @@
 {% extends 'base.html' %}
-{% block title %}CRUD Alumnos{% endblock %}
-{% block content %}
-<a href="{{ url_for('create_alumno') }}" class="btn btn-success mb-3">Agregar Alumno</a>
 
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>No_control</th>
-            <th>Nombre</th>
-            <th>Apellido Paterno</th>
-            <th>Apellido Materno</th>
-            <th>Semestre</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for alumno in alumnos %}
-        <tr>
-            <td>{{ alumno.no_control }}</td>
-            <td>{{ alumno.nombre }}</td>
-            <td>{{ alumno.ap_paterno }}</td>
-            <td>{{ alumno.ap_materno }}</td>
-            <td>{{ alumno.semestre }}</td>
-            <td>
-                <a href="{{ url_for('update_alumno', no_control=alumno.no_control) }}" class="btn btn-warning">Editar</a>
-                <a href="{{ url_for('delete_alumno', no_control=alumno.no_control) }}" class="btn btn-danger">Eliminar</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+{% block title %}CRUD Alumnos{% endblock %}
+
+{% block content %}
+<!-- Font Awesome CDN -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+    .icono-accion {
+        font-size: 20px;
+        margin: 0 8px;
+        color: purple;
+        cursor: pointer;
+    }
+    .icono-accion:hover {
+        color: darkmagenta;
+    }
+
+    .icono-agregar {
+        font-size: 24px;
+        color: purple;
+        cursor: pointer;
+        margin-bottom: 10px;
+    }
+    .icono-agregar:hover {
+        color: darkmagenta;
+    }
+</style>
+
+<div class="container mt-4">
+    <a href="{{ url_for('create_alumno') }}" title="Agregar Alumno">
+        <i class="fas fa-user-plus icono-agregar"></i>
+    </a>
+
+    <table class="table table-bordered table-striped text-center">
+        <thead class="table-dark">
+            <tr>
+                <th>No. Control</th>
+                <th>Nombre</th>
+                <th>Apellido Paterno</th>
+                <th>Apellido Materno</th>
+                <th>Semestre</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for alumno in alumnos %}
+            <tr>
+                <td>{{ alumno.no_control }}</td>
+                <td>{{ alumno.nombre }}</td>
+                <td>{{ alumno.ap_paterno }}</td>
+                <td>{{ alumno.ap_materno }}</td>
+                <td>{{ alumno.semestre }}</td>
+                <td>
+                    <a href="{{ url_for('update_alumno', no_control=alumno.no_control) }}">
+                        <i class="fas fa-pen icono-accion" title="Editar"></i>
+                    </a>
+                    <a href="{{ url_for('delete_alumno', no_control=alumno.no_control) }}">
+                        <i class="fas fa-trash icono-accion" title="Eliminar"></i>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}
+
