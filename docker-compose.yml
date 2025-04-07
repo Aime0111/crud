@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "5001:5000"
+    environment:
+      - FLASK_ENV=development
+      - DATABASE_URL=postgresql://aime:5mKbuTUEhCjqXXcmijUtvD4DfzKrGvHC@dpg-cv7oreij1k6c739gn5s0-a.oregon-postgres.render.com/biblioteca_7xwc
+    volumes:
+      - .:/app
