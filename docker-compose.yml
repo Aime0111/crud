@@ -22,7 +22,7 @@ services:
     depends_on:
       - db
     environment:
-      - DATABASE_URL=postgresql://admin:011108@db:5432/alumnos
+      - DATABASE_URL=postgresql://aime:5mKbuTUEhCjqXXcmijUtvD4DfzKrGvHC@dpg-cv7oreij1k6c739gn5s0-a.oregon-postgres.render.com/biblioteca_7xwc
     volumes:
       - .:/app
     restart: always
