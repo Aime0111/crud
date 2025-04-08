@@ -1,12 +1,37 @@
 version: '3.8'
 
 services:
-  web:
+  db:
+    image: postgres:16
+    restart: no
+    environment:
+      POSTGRES_DB: alumnos
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: 011108
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - crud_alumnos
+
+  alumnos:
     build: .
     ports:
-      - "5001:5000"
+      - "5000:5000"
+    depends_on:
+      - db
     environment:
-      - FLASK_ENV=development
-      - DATABASE_URL=postgresql://aime:5mKbuTUEhCjqXXcmijUtvD4DfzKrGvHC@dpg-cv7oreij1k6c739gn5s0-a.oregon-postgres.render.com/biblioteca_7xwc
+      - DATABASE_URL=postgresql://admin:011108@db:5432/alumnos
     volumes:
       - .:/app
+    restart: always
+    networks:
+      - crud_alumnos
+
+volumes:
+  postgres_data:
+
+networks:
+  crud_alumnos:
+    external: true
