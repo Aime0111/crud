@@ -24,7 +24,7 @@ services:
     environment:
       - DATABASE_URL=postgresql://admin:011108@db:5432/alumnos
     volumes:
-      - .
+      - .:/app
     restart: always
     networks:
       - crud_alumnos
